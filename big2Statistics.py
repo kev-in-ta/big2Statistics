@@ -24,13 +24,19 @@ attempts = 2500
 ###########################################
 
 class clCard:
-    
+    """
+    Class for a single card in Big 2
+    """
+
     def __init__(self, suit, number):
         self.suit = suit
         self.number = number
 
 class clHand:
-    
+    """
+    Class for a 13-card hand in Big 2
+    """
+
     def __init__(self, hand):
         self.hand = hand
         self.numberCount = np.zeros(13)
@@ -41,6 +47,9 @@ class clHand:
             self.suitCount[SUITS[card[1]] - 1] += 1
 
     def fnCountMultiples(self):
+        """
+        Counts number of each card number and stores number of doubles, triples, and quadruples as class variable
+        """
 
         multipleNumberCount = self.numberCount
 
@@ -55,12 +64,17 @@ class clHand:
         self.doubles = multipleNumberCount // 2
 
     def fnCountFlushes(self):
+        """
+        Counts number of each suit and stores number of flushes as class variable
+        """
 
         self.suits = np.zeros(4)
         self.suits = self.suitCount // 5
 
     def fnCountStraights(self):
-
+        """
+        Counts number of straights and stores as class variable
+        """
         self.straights = 0
         straightNumberCount = self.numberCount
 
@@ -95,11 +109,18 @@ class clHand:
             self.straights += 2
 
 class clDeck:
-    
+    """
+    Class for a 52-card deck in Big 2
+    """
+
     def __init__(self, suits, numbers):
         self.cards = [[(i,j) for i in numbers] for j in suits]
-    
+
     def fnShuffle(self):
+        """
+        Shuffles card order in deck to simulate random dealing of cards
+        """
+
         deckArray = self.cards[0] + self.cards[1] + self.cards[2] + self.cards[3]
         np.random.shuffle(deckArray)
         self.cards = [deckArray[0:13], deckArray[13:26], deckArray[26:39], deckArray[39:52]]
@@ -109,6 +130,9 @@ class clDeck:
 ###########################################
 
 def fnFindStraightLength(zeroIndex):
+    """
+    Finds the length of each consecutive set of numbers and returns each length in an array
+    """
 
     straightRunLength = []
 
@@ -154,8 +178,8 @@ if __name__ == '__main__':
             playerHand.fnCountFlushes()
             flushes += sum(playerHand.suits)
 
-            playerHand.fnCountStraights()
-            straights += playerHand.straights
+            # playerHand.fnCountStraights()
+            # straights += playerHand.straights
 
             print("Number of hands analyzed: {0:.0f}/{1:.0f}".format(i * 4 + j, attempts * 4))
 
@@ -165,6 +189,8 @@ if __name__ == '__main__':
     print("Quadruples: {0:.0f}".format(quadruples))
     print("Full Houses: {0:.0f}".format(fullHouses))
     print("Flushes: {0:.0f}".format(flushes))
-    print("Straights: {0:.0f}".format(straights))
+    # print("Straights: {0:.0f}".format(straights))
+
+    input()
 
     pass
